@@ -9,7 +9,6 @@ import { connectDB } from "./db/db.js";
 
 dotenv.config();
 const app = express();
-const port = 3000;
 
 app.set("view engine", "ejs");
 
@@ -87,11 +86,12 @@ app.post("/submit", async (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(process.env.PORT || 3000, '0.0.0.0', () => {
+  console.log('Server is up and running');
   connectDB();
   importCSVData();
 });
+
 
 
 
