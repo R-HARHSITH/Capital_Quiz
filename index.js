@@ -22,7 +22,7 @@ let quizi = [];
 let currentQuestion = null;
 
 async function importCSVData() {
-  const quizCount = await quiz.countDocuments();
+  const quizCount = await quiz.estimatedDocumentCount();
   if (quizCount === 0) {
     const csvFilePath = path.join(__dirname, "capitals.csv");
     csv()
