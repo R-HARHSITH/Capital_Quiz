@@ -13,7 +13,7 @@ const port = 3000;
 
 app.set("view engine", "ejs");
 
-connectDB();
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -89,6 +89,7 @@ app.post("/submit", async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  connectDB();
   importCSVData();
 });
 
