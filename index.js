@@ -13,10 +13,8 @@ const port = 3000;
 
 app.set("view engine", "ejs");
 
-// Connect to MongoDB
 connectDB();
 
-// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -24,7 +22,6 @@ let totalCorrect = 0;
 let quizi = [];
 let currentQuestion = null;
 
-// Import CSV data into MongoDB (if the database is empty)
 async function importCSVData() {
   const quizCount = await quiz.countDocuments();
   if (quizCount === 0) {
@@ -46,7 +43,6 @@ async function importCSVData() {
   }
 }
 
-// Load quiz data from MongoDB
 async function loadQuizData() {
   try {
     quizi = await quiz.find(); // Fetch all quiz data
@@ -55,12 +51,10 @@ async function loadQuizData() {
   }
 }
 
-// Fetch a random question
 async function nextQuestion() {
   currentQuestion = quizi[Math.floor(Math.random() * quizi.length)];
 }
 
-// Route to display the quiz page
 app.get("/", async (req, res) => {
   await loadQuizData();
   await nextQuestion();
@@ -71,7 +65,6 @@ app.get("/", async (req, res) => {
   });
 });
 
-// Route to handle quiz submission
 app.post("/submit", async (req, res) => {
   const answer = req.body.answer.trim();
   let isCorrect = false;
@@ -94,7 +87,6 @@ app.post("/submit", async (req, res) => {
   });
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
   importCSVData();
