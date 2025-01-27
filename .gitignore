@@ -1,0 +1,7 @@
+.env
+user:"postgres",
+    host:"localhost",
+    database:"hello_world",
+    password:"harshith@1204",
+    port:5432,
+node_modules

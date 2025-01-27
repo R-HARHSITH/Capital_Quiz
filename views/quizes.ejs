@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CAPITALS QUIZ</title>
+    <link rel="stylesheet" href="/style/quiz.css" />
+  </head>
+  <body id="quiz_app">
+    <form class="container" action="/submit" method="post">
+      <div class="horizontal">
+        <h2>
+          Total Score :
+          <span id="score">
+            <%= totalScore %>
+          </span>
+        </h2>
+      </div>
+      <h1 id="country">
+        <%= question.country %>
+      </h1>
+      <div class="answer-container">
+        <input
+          type="text"
+          name="answer"
+          id="userInput"
+          placeholder="Enter the capital"
+          autofocus
+          autocomplete="off"
+        />
+      </div>
+      <button type="submit">SUBMIT</button>
+      <% if (wasCorrect === true) { %>
+      <span class="checkmark">✔ Correct!</span>
+      <% } else if (wasCorrect === false) { %>
+      <span class="error">❌ Incorrect!</span>
+      <% } %>
+    </form>
+    <% if (wasCorrect === false) { %>
+    <script>
+      alert("Game over! Final best score: <%= totalScore %>");
+      document.getElementById("quiz_app").innerHTML =
+        '<a href="/" class="restart-button">Restart</a>';
+    </script>
+    <% } %>
+  </body>
+</html>
