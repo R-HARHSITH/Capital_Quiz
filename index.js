@@ -28,7 +28,7 @@ async function importCSVData() {
     csv()
       .fromFile(csvFilePath)
       .then((jsonObj) => {
-        console.log("Converted JSON data from CSV:", jsonObj);
+        // console.log("Converted JSON data from CSV:", jsonObj);
         quiz.insertMany(jsonObj)
           .then(() => {
             console.log("CSV data imported successfully.");
