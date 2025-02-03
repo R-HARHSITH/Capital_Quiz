@@ -9,14 +9,11 @@ import { connectDB } from "./db/db.js";
 
 dotenv.config();
 const app = express();
-const port = 3000;
 
 app.set("view engine", "ejs");
 
-// Connect to MongoDB
-connectDB();
+const port=process.env.PORT;
 
-// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -24,29 +21,28 @@ let totalCorrect = 0;
 let quizi = [];
 let currentQuestion = null;
 
-// Import CSV data into MongoDB (if the database is empty)
-// async function importCSVData() {
-//   const quizCount = await quiz.countDocuments();
-//   if (quizCount === 0) {
-//     const csvFilePath = path.join(__dirname, "capitals.csv");
-//     csv()
-//       .fromFile(csvFilePath)
-//       .then((jsonObj) => {
-//         console.log("Converted JSON data from CSV:", jsonObj);
-//         quiz.insertMany(jsonObj)
-//           .then(() => {
-//             console.log("CSV data imported successfully.");
-//           })
-//           .catch((err) => {
-//             console.error("Error importing data:", err);
-//           });
-//       });
-//   } else {
-//     console.log("Data already exists in the database.");
-//   }
-// }
+// this will be donw only fo first time but as now the data is present in db there is o need for this function
+// // async function importCSVData() {
+// //   const quizCount = await quiz.estimatedDocumentCount();
+// //   if (quizCount === 0) {
+// //     const csvFilePath = path.join(__dirname, "capitals.csv");
+// //     csv()
+// //       .fromFile(csvFilePath)
+// //       .then((jsonObj) => {
+////          // console.log("Converted JSON data from CSV:", jsonObj);
+// //         quiz.insertMany(jsonObj)
+// //           .then(() => {
+// //             console.log("CSV data imported successfully.");
+// //           })
+// //           .catch((err) => {
+// //             console.error("Error importing data:", err);
+// //           });
+// //       });
+// //   } else {
+// //     console.log("Data already exists in the database.");
+// //   }
+// // }
 
-// Load quiz data from MongoDB
 async function loadQuizData() {
   try {
     quizi = await quiz.find(); // Fetch all quiz data
@@ -55,12 +51,10 @@ async function loadQuizData() {
   }
 }
 
-// Fetch a random question
 async function nextQuestion() {
   currentQuestion = quizi[Math.floor(Math.random() * quizi.length)];
 }
 
-// Route to display the quiz page
 app.get("/", async (req, res) => {
   await loadQuizData();
   await nextQuestion();
@@ -71,7 +65,6 @@ app.get("/", async (req, res) => {
   });
 });
 
-// Route to handle quiz submission
 app.post("/submit", async (req, res) => {
   const answer = req.body.answer.trim();
   let isCorrect = false;
@@ -99,6 +92,7 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
   // importCSVData();
 });
+
 
 
 
