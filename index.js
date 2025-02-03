@@ -22,26 +22,26 @@ let quizi = [];
 let currentQuestion = null;
 
 // this will be donw only fo first time but as now the data is present in db there is o need for this function
-// // async function importCSVData() {
-// //   const quizCount = await quiz.estimatedDocumentCount();
-// //   if (quizCount === 0) {
-// //     const csvFilePath = path.join(__dirname, "capitals.csv");
-// //     csv()
-// //       .fromFile(csvFilePath)
-// //       .then((jsonObj) => {
-////          // console.log("Converted JSON data from CSV:", jsonObj);
-// //         quiz.insertMany(jsonObj)
-// //           .then(() => {
-// //             console.log("CSV data imported successfully.");
-// //           })
-// //           .catch((err) => {
-// //             console.error("Error importing data:", err);
-// //           });
-// //       });
-// //   } else {
-// //     console.log("Data already exists in the database.");
-// //   }
-// // }
+// async function importCSVData() {
+//   const quizCount = await quiz.estimatedDocumentCount();
+//   if (quizCount === 0) {
+//     const csvFilePath = path.join(__dirname, "capitals.csv");
+//     csv()
+//       .fromFile(csvFilePath)
+//       .then((jsonObj) => {
+//          // console.log("Converted JSON data from CSV:", jsonObj);
+//         quiz.insertMany(jsonObj)
+//           .then(() => {
+//             console.log("CSV data imported successfully.");
+//           })
+//           .catch((err) => {
+//             console.error("Error importing data:", err);
+//           });
+//       });
+//   } else {
+//     console.log("Data already exists in the database.");
+//   }
+// }
 
 async function loadQuizData() {
   try {
@@ -90,6 +90,7 @@ app.post("/submit", async (req, res) => {
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  connectDB();
   // importCSVData();
 });
 
